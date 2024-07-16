@@ -3,9 +3,6 @@ import { kindeClient, sessionManager } from "./kindAuth";
 
 const authRoutes = Router();
 
-const num = 0;
-console.log(num);
-
 authRoutes.use("/login", async (req: Request, res: Response) => {
   const loginUrl = await kindeClient.login(sessionManager(req, res));
   return res.redirect(loginUrl.toString());
@@ -29,7 +26,7 @@ authRoutes.use("/logout", async (req: Request, res: Response) => {
 
 authRoutes.use("/me", async (req: Request, res: Response) => {
   const isAuthenticated = await kindeClient.isAuthenticated(
-    sessionManager(req, res),
+    sessionManager(req, res)
   );
   if (isAuthenticated) {
     const profile = await kindeClient.getUserProfile(sessionManager(req, res));

@@ -10,6 +10,9 @@ app.use(bodyParser.json());
 
 app.use("/api", authRoutes);
 
+app.use(cookieParser());
+app.use(bodyParser.json());
+
 app.use("/", (req: Request, res: Response) => {
   return res.json("Hello World");
 });
