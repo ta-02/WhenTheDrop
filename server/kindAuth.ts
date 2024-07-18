@@ -1,9 +1,9 @@
+import { Request, Response } from "express";
 import {
   createKindeServerClient,
   GrantType,
   SessionManager,
 } from "@kinde-oss/kinde-typescript-sdk";
-import { Request, Response } from "express";
 import "dotenv/config";
 
 export const kindeClient = createKindeServerClient(
@@ -11,7 +11,7 @@ export const kindeClient = createKindeServerClient(
   {
     authDomain: process.env.KINDE_DOMAIN!,
     clientId: process.env.KINDE_CLIENT_ID!,
-    clientSecret: process.env.KINDE_CLIENT_SECRET,
+    clientSecret: process.env.KINDE_CLIENT_SECRET!,
     redirectURL: process.env.KINDE_REDIRECT_URI!,
     logoutRedirectURL: process.env.KINDE_LOGOUT_REDIRECT_URI!,
   },
