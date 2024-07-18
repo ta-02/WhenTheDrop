@@ -1,5 +1,6 @@
-import { Router, Request, Response } from "express";
-import { kindeClient, sessionManager } from "./kindAuth";
+import { Router, Response } from "express";
+import { Request } from "./types";
+import { kindeClient, sessionManager, getUser } from "./kindAuth";
 
 const authRoutes = Router();
 
@@ -24,14 +25,9 @@ authRoutes.use("/logout", async (req: Request, res: Response) => {
   return res.redirect(logoutUrl.toString());
 });
 
-authRoutes.use("/me", async (req: Request, res: Response) => {
-  const isAuthenticated = await kindeClient.isAuthenticated(
-    sessionManager(req, res)
-  );
-  if (isAuthenticated) {
-    const profile = await kindeClient.getUserProfile(sessionManager(req, res));
-    return res.json(profile);
-  }
+authRoutes.use("/me", getUser, async (req: Request, res: Response) => {
+  const user = req.user;
+  res.json({ user });
 });
 
 export default authRoutes;

@@ -1,4 +1,5 @@
-import { Request, Response } from "express";
+import { NextFunction, Response } from "express";
+import { Request } from "./types";
 import {
   createKindeServerClient,
   GrantType,
@@ -42,3 +43,19 @@ export const sessionManager = (
     });
   },
 });
+
+export async function getUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const manager = sessionManager(req, res);
+    const isAuthenticated = await kindeClient.isAuthenticated(manager);
+    if (!isAuthenticated) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const user = await kindeClient.getUserProfile(manager);
+    req.user = user;
+    next();
+  } catch (e) {
+    console.error(e);
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+}
