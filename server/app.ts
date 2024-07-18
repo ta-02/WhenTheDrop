@@ -2,17 +2,22 @@ import { Request, Response } from "express";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import authRoutes from "./authRoute";
+import authRoutes from "./routes/authRoute";
+import path from "path";
 
 const app = express();
 
-app.use(cookieParser());
-app.use(bodyParser.json());
+const middleWare = [
+  cookieParser(),
+  bodyParser.json(),
+  express.static(path.join(__dirname, "../frontend/dist")),
+];
+middleWare.forEach((m) => app.use(m));
 
 app.use("/api", authRoutes);
 
-app.use("/", (_req: Request, res: Response) => {
-  return res.json("Hello World");
+app.get("*", (_req: Request, res: Response) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
 });
 
 export default app;

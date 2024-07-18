@@ -1,6 +1,6 @@
 import { Router, Response } from "express";
-import { Request } from "./types";
-import { kindeClient, sessionManager, getUser } from "./kindAuth";
+import { Request } from "../types";
+import { kindeClient, sessionManager, getUser } from "../auth/kindeAuth";
 
 const authRoutes = Router();
 
