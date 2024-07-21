@@ -17,7 +17,8 @@ const Login = () => {
 };
 
 const Component = () => {
-  const { user } = Route.useRouteContext();
+  const user = Route.useRouteContext();
+  console.log(user);
   if (!user) {
     return <Login />;
   }
@@ -29,9 +30,9 @@ export const Route = createFileRoute("/_authenticated")({
     const queryClient = context.queryClient;
     try {
       const data = await queryClient.fetchQuery(userQueryOptions);
-      context.user = data;
+      return data;
     } catch (e) {
-      console.log(e);
+      return { user: null };
     }
   },
   component: Component,
