@@ -6,15 +6,39 @@ import {
   SessionManager,
 } from "@kinde-oss/kinde-typescript-sdk";
 import "dotenv/config";
+import z from "zod";
+
+const KindeEnv = z.object({
+  KINDE_DOMAIN: z.string(),
+  KINDE_CLIENT_ID: z.string(),
+  KINDE_CLIENT_SECRET: z.string(),
+  KINDE_REDIRECT_URI: z.string().url(),
+  KINDE_LOGOUT_REDIRECT_URI: z.string().url(),
+});
+
+const parsedEnv = KindeEnv.safeParse(process.env);
+
+if (!parsedEnv.success) {
+  console.error("Invalid environment variables:", parsedEnv.error.format());
+  process.exit(1);
+}
+
+const {
+  KINDE_DOMAIN,
+  KINDE_CLIENT_ID,
+  KINDE_CLIENT_SECRET,
+  KINDE_REDIRECT_URI,
+  KINDE_LOGOUT_REDIRECT_URI,
+} = parsedEnv.data;
 
 export const kindeClient = createKindeServerClient(
   GrantType.AUTHORIZATION_CODE,
   {
-    authDomain: process.env.KINDE_DOMAIN!,
-    clientId: process.env.KINDE_CLIENT_ID!,
-    clientSecret: process.env.KINDE_CLIENT_SECRET!,
-    redirectURL: process.env.KINDE_REDIRECT_URI!,
-    logoutRedirectURL: process.env.KINDE_LOGOUT_REDIRECT_URI!,
+    authDomain: KINDE_DOMAIN,
+    clientId: KINDE_CLIENT_ID,
+    clientSecret: KINDE_CLIENT_SECRET,
+    redirectURL: KINDE_REDIRECT_URI,
+    logoutRedirectURL: KINDE_LOGOUT_REDIRECT_URI,
   },
 );
 
