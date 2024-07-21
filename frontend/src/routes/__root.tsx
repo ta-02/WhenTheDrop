@@ -1,8 +1,19 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import {
+  createRootRouteWithContext,
+  Link,
+  Outlet,
+} from "@tanstack/react-router";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
+import { type QueryClient } from "@tanstack/react-query";
+import { UserType } from "@kinde-oss/kinde-typescript-sdk";
 
-export const Route = createRootRoute({
+interface MyRouterContext {
+  queryClient: QueryClient;
+  user?: UserType;
+}
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -23,4 +34,11 @@ export const Route = createRootRoute({
       </ThemeProvider>
     </>
   ),
+  notFoundComponent: () => {
+    return (
+      <div>
+        <Link to="/">Start Over</Link>
+      </div>
+    );
+  },
 });

@@ -5,9 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
-const router = createRouter({ routeTree });
-
 const queryClient = new QueryClient();
+
+const router = createRouter({
+  routeTree,
+  context: { queryClient },
+});
 
 declare module "@tanstack/react-router" {
   interface Register {
