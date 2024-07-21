@@ -14,18 +14,18 @@
   "description": "",
   "dependencies": {
     "@kinde-oss/kinde-typescript-sdk": "^2.9.1",
-    "@types/body-parser": "^1.19.5",
-    "@types/cookie-parser": "^1.4.7",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "nodemon": "^3.1.4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cookie-parser": "^1.4.7",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3",
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.10"
   }
