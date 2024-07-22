@@ -27,7 +27,7 @@ authRoutes.get("/logout", async (req: Request, res: Response) => {
 
 authRoutes.get("/me", getUser, async (req: Request, res: Response) => {
   const user = req.user;
-  res.json(user);
+  res.json({ user });
 });
 
 export default authRoutes;

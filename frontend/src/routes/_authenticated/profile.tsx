@@ -11,7 +11,7 @@ function ProfilePage() {
   if (isPending) return "Loading...";
   if (error) return "An error has occurred: " + error.message;
 
-  const user = data;
+  const user = data.user;
 
   return (
     <div>

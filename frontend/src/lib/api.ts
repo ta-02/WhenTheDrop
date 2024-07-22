@@ -1,5 +1,5 @@
-import { UserType } from "@kinde-oss/kinde-typescript-sdk";
 import { queryOptions } from "@tanstack/react-query";
+import { GetCurrentUser } from "./types";
 import axios from "axios";
 
 const getCurrentUser = async () => {
@@ -11,7 +11,7 @@ const getCurrentUser = async () => {
     });
 };
 
-export const userQueryOptions = queryOptions<UserType>({
+export const userQueryOptions = queryOptions<GetCurrentUser>({
   queryKey: ["get-current-user"],
   queryFn: getCurrentUser,
   staleTime: Infinity,
