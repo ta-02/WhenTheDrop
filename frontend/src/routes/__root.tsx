@@ -6,11 +6,9 @@ import {
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 import { type QueryClient } from "@tanstack/react-query";
-import { UserType } from "@kinde-oss/kinde-typescript-sdk";
 
 interface MyRouterContext {
   queryClient: QueryClient;
-  user?: UserType;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -36,7 +34,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   ),
   notFoundComponent: () => {
     return (
-      <div>
+      <div className="text-lg">
         <Link to="/">Start Over</Link>
       </div>
     );
