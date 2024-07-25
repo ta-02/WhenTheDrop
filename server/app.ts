@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/authRoute";
+import { authRoutes } from "./routes/authRoute";
+import { problemRoutes } from "./routes/problemsRoute";
 import path from "path";
 
 const app = express();
@@ -15,6 +16,7 @@ const middleWare = [
 middleWare.forEach((m) => app.use(m));
 
 app.use("/api", authRoutes);
+app.use("/api", problemRoutes);
 
 app.get("*", (_req: Request, res: Response) => {
   res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));

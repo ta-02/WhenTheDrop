@@ -2,7 +2,7 @@ import { Router, Response } from "express";
 import { Request } from "../types";
 import { kindeClient, sessionManager, getUser } from "../auth/kindeAuth";
 
-const authRoutes = Router();
+export const authRoutes = Router();
 
 authRoutes.get("/login", async (req: Request, res: Response) => {
   const loginUrl = await kindeClient.login(sessionManager(req, res));
@@ -29,5 +29,3 @@ authRoutes.get("/me", getUser, async (req: Request, res: Response) => {
   const user = req.user;
   res.json({ user });
 });
-
-export default authRoutes;
