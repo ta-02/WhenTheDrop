@@ -6,20 +6,18 @@ import { authRoutes } from "./routes/authRoute";
 import { problemRoutes } from "./routes/problemsRoute";
 import path from "path";
 
-const app = express();
+export const app = express();
 
 const middleWare = [
   cookieParser(),
   bodyParser.json(),
   express.static(path.join(__dirname, "../frontend/dist")),
 ];
-middleWare.forEach((m) => app.use(m));
+const routes = [authRoutes, problemRoutes];
 
-app.use("/api", authRoutes);
-app.use("/api", problemRoutes);
+middleWare.forEach((m) => app.use(m));
+routes.forEach((r) => app.use("/api", r));
 
 app.get("*", (_req: Request, res: Response) => {
   res.sendFile(path.resolve(__dirname, "../frontend/dist/index.html"));
 });
-
-export default app;

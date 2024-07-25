@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as ProblemsImport } from './routes/problems'
 import { Route as AboutImport } from './routes/about'
 import { Route as AuthenticatedImport } from './routes/_authenticated'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProblemsProblemIdImport } from './routes/problems.$problemId'
 import { Route as AuthenticatedProfileImport } from './routes/_authenticated/profile'
 
 // Create/Update Routes
+
+const ProblemsRoute = ProblemsImport.update({
+  path: '/problems',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const AboutRoute = AboutImport.update({
   path: '/about',
@@ -31,6 +38,11 @@ const AuthenticatedRoute = AuthenticatedImport.update({
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const ProblemsProblemIdRoute = ProblemsProblemIdImport.update({
+  path: '/$problemId',
+  getParentRoute: () => ProblemsRoute,
 } as any)
 
 const AuthenticatedProfileRoute = AuthenticatedProfileImport.update({
@@ -63,12 +75,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/problems': {
+      id: '/problems'
+      path: '/problems'
+      fullPath: '/problems'
+      preLoaderRoute: typeof ProblemsImport
+      parentRoute: typeof rootRoute
+    }
     '/_authenticated/profile': {
       id: '/_authenticated/profile'
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof AuthenticatedProfileImport
       parentRoute: typeof AuthenticatedImport
+    }
+    '/problems/$problemId': {
+      id: '/problems/$problemId'
+      path: '/$problemId'
+      fullPath: '/problems/$problemId'
+      preLoaderRoute: typeof ProblemsProblemIdImport
+      parentRoute: typeof ProblemsImport
     }
   }
 }
@@ -81,6 +107,7 @@ export const routeTree = rootRoute.addChildren({
     AuthenticatedProfileRoute,
   }),
   AboutRoute,
+  ProblemsRoute: ProblemsRoute.addChildren({ ProblemsProblemIdRoute }),
 })
 
 /* prettier-ignore-end */
@@ -93,7 +120,8 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/_authenticated",
-        "/about"
+        "/about",
+        "/problems"
       ]
     },
     "/": {
@@ -108,9 +136,19 @@ export const routeTree = rootRoute.addChildren({
     "/about": {
       "filePath": "about.tsx"
     },
+    "/problems": {
+      "filePath": "problems.tsx",
+      "children": [
+        "/problems/$problemId"
+      ]
+    },
     "/_authenticated/profile": {
       "filePath": "_authenticated/profile.tsx",
       "parent": "/_authenticated"
+    },
+    "/problems/$problemId": {
+      "filePath": "problems.$problemId.tsx",
+      "parent": "/problems"
     }
   }
 }

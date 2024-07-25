@@ -38,7 +38,7 @@ function Index() {
 
   return (
     <div className="flex items-start flex-col p-4 min-h-screen">
-      <h1 className="flex justify-center text-2xl p-4">LeetCode📦</h1>
+      <h1 className="flex justify-center text-2xl p-4">LeetCode❓</h1>
       <Table className="min-w-full lg:min-w-max">
         <TableCaption>Problems</TableCaption>
         <TableHeader>
