@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
+import path from "path";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import { authRoutes } from "./routes/authRoute";
 import { problemRoutes } from "./routes/problemsRoute";
-import path from "path";
+import { authRoutes } from "./routes/authRoute";
+import { Request, Response } from "express";
 
 export const app = express();
 
@@ -13,6 +13,7 @@ const middleWare = [
   bodyParser.json(),
   express.static(path.join(__dirname, "../frontend/dist")),
 ];
+
 const routes = [authRoutes, problemRoutes];
 
 middleWare.forEach((m) => app.use(m));

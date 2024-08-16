@@ -4,6 +4,6 @@ import { problems } from "../problems";
 
 export const problemRoutes = Router();
 
-problemRoutes.get("/problems", (req: Request, res: Response) => {
+problemRoutes.get("/problems", (_: Request, res: Response) => {
   res.json(problems);
 });
